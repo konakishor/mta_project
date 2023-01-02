@@ -1,0 +1,1070 @@
+# user_kishor_web_proj
+
+CREATE TABLE tmp.`clienttype` (
+  `ClientTypeID` int(11) NOT NULL AUTO_INCREMENT,
+  `ClientType` varchar(250) NOT NULL,
+  PRIMARY KEY (`ClientTypeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+INSERT INTO clienttype (ClientTypeID, ClientType) VALUES(0, 'Unassigned');
+INSERT INTO clienttype (ClientTypeID, ClientType) VALUES(1, 'Buy Side');
+INSERT INTO clienttype (ClientTypeID, ClientType) VALUES(2, 'Sell Side');
+INSERT INTO clienttype (ClientTypeID, ClientType) VALUES(3, 'Market Centres/Exchanges');
+INSERT INTO clienttype (ClientTypeID, ClientType) VALUES(4, 'Resellers');
+INSERT INTO clienttype (ClientTypeID, ClientType) VALUES(5, 'None');
+
+CREATE TABLE `mta_client` (
+  `ClientID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserXSClientID` varchar(100) DEFAULT NULL,
+  `ClientName` varchar(500) DEFAULT NULL,
+  `ServiceType` varchar(100) DEFAULT NULL,
+  `ClientLocation` varchar(100) DEFAULT NULL,
+  `SalesforceAccountName` varchar(100) DEFAULT NULL,
+  `DomainRestrictions` varchar(2500) DEFAULT NULL,
+  `IPRestrictions` varchar(500) DEFAULT NULL,
+  `IsAdmin` bit(1) NOT NULL DEFAULT b'0',
+  `IsPOC` bit(1) NOT NULL DEFAULT b'0',
+  `ClientTypeID` int(11) DEFAULT NULL,
+  `ClientSize` varchar(4) DEFAULT NULL,
+  `Created` datetime NOT NULL DEFAULT current_timestamp(),
+  `CreatedBy` varchar(128) DEFAULT 'mtauser',
+  `LastUpdated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `LastUpdatedBy` varchar(128) DEFAULT 'mtauser',
+  `IsActive` bit(1) NOT NULL DEFAULT b'1',
+  `isExternal` bit(1) NOT NULL DEFAULT b'1',
+  `description` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`ClientID`),
+  UNIQUE KEY `ClientName` (`ClientName`),
+  KEY `fk_Client_2` (`ClientTypeID`),
+  CONSTRAINT `mta_client_FK` FOREIGN KEY (`ClientTypeID`) REFERENCES `clienttype` (`ClientTypeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'IHSM Asset Management', NULL, '4', NULL, 'ihsmarkit.com,markit.com', '', 0, 0, 0, NULL, '2017-11-22 22:37:03.000', 'Michael Chavis', '2022-12-06 15:34:02.000', 'Michael Chavis', 1, 1, 'Actual Test Client created to be used by PRODUCT/QA team');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13279049626044B12B99', 'Markit', NULL, 'US', NULL, NULL, NULL, 0, 0, 0, NULL, '2017-12-15 15:29:32.000', 'mtauser', '2021-03-03 19:06:55.000', 'Vivek Bernard', 1, 0, 'This is Test Client');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'TEST', NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '2021-03-01 09:03:24.000', 'mtauser', '2021-03-01 09:03:24.000', 'mtauser', 1, 0, 'This is Temp Client for Referencing');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'SUPPORT', NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '2021-03-01 09:03:29.000', 'mtauser', '2021-03-01 09:03:29.000', 'mtauser', 1, 0, 'This is Temp Client for Referencing');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'DEFAULT', NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, '2021-03-01 09:03:34.000', 'mtauser', '2021-03-01 09:03:34.000', 'mtauser', 1, 0, 'This is Temp Client for Referencing');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD160055CF9FC0961F5474', 'Hermes Investment Management', NULL, '2', NULL, 'hermes-investment.com', '', 0, 0, 1, NULL, '2017-11-29 07:41:55.000', 'Christos Gardikis', '2021-07-26 17:10:57.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('369AA68712F03D19D7102CC852E0', 'Royal London Asset Management', NULL, '2', NULL, '@rlam.com,@rlam.co.uk', '', 0, 0, 1, NULL, '2017-11-29 07:42:28.000', 'Vivek Bernard', '2018-06-22 19:11:32.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15E3DB6E81306D47B48B', 'Tesco Pension Investment Limited', NULL, '0', NULL, 'tesco.com,tescolp.com,tpifm.com', '', 0, 0, 0, NULL, '2017-12-21 17:37:22.000', 'Christos Gardikis', '2021-01-12 14:50:53.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13E61717F2A0EED053D7', 'HSBC Private Bank', NULL, '0', NULL, 'hsbcpb.com,hsbc.com;hsbcprivatebank.com', '', 0, 0, 2, NULL, '2017-12-21 17:42:55.000', 'Robert Beauregard', '2019-04-05 11:51:21.000', 'Robert Beauregard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE96159A7E8C56D09265AB00', 'ABG Sundal Collier', NULL, '3', NULL, 'abgsc.se,abgsc.no', '', 0, 0, 0, NULL, '2017-12-29 17:23:48.000', 'Christos Gardikis', '2021-02-01 19:29:09.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1610016A6230401C5759', 'Mischler Financial Group Inc', NULL, '0', NULL, '@mischlerfinancial.com', '', 0, 0, 0, NULL, '2018-01-02 16:45:13.000', 'Edward Plante', '2021-08-20 15:21:37.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16100108E83084089EB1', 'Northcoast Research Partners', NULL, '0', NULL, '@northcoastresearch.com', '', 0, 0, 0, NULL, '2018-01-02 16:48:26.000', 'Stephanie Ginsberg', '2022-02-08 15:58:59.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1610014D843090AE714', 'Lombard Odier Transatlantic', NULL, NULL, NULL, '@lombardodier-transatlantic.com', '', 0, 0, 5, NULL, '2018-01-02 16:54:46.000', 'Kapil Koul', '2019-01-31 10:23:50.000', 'Kapil Koul', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327907A71F03A1688F3', 'Evercore ISI', NULL, 'New York, NY', NULL, 'evercoreisi.com', '', 0, 0, 0, NULL, '2018-01-03 15:56:23.000', 'Robert Beauregard', '2019-10-04 20:40:16.000', 'Robert Beauregard', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15F0B00D0CE0FB413E77', 'Brasil Plural Securities', NULL, 'New York, New York', NULL, '@brasilplural.com', '', 0, 0, 0, NULL, '2018-01-03 20:46:54.000', 'Stephanie Ginsberg', '2019-10-04 20:40:16.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615DC3861D450763A3E97', 'Churchill Capital Ltd.', NULL, 'New York, New York', NULL, '@churchillcap.com', '', 0, 0, 0, NULL, '2018-01-03 20:50:14.000', 'Stephanie Ginsberg', '2019-10-04 20:40:16.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16100223571080CD7CB', 'Euro Pacific Capital Inc', NULL, NULL, NULL, '@europac.net', '', 0, 0, 0, NULL, '2018-01-03 20:51:07.000', 'Edward Plante', '2020-05-06 20:46:30.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F161002356EB095AF0AF8', 'JNK Securities', NULL, '0', NULL, '@jnksecurities.com', '', 0, 0, 0, NULL, '2018-01-03 21:15:23.000', 'Stephanie Ginsberg', '2022-02-08 15:44:29.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE96159A7E8C56D09265AB00', 'ABG Sundial Collier - DUPLICATE DO NO USE', NULL, 'Stockholm, Sweden', NULL, 'abgsc.se', '', 0, 0, 0, NULL, '2018-01-08 19:07:24.000', 'Stephanie Ginsberg', '2019-10-04 20:40:16.000', 'Robert Beauregard', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13278EC29520D1E59CCD', 'Barings', NULL, '0', NULL, 'barings.com', '', 0, 0, 0, NULL, '2018-01-08 19:07:33.000', 'Juan Vera', '2022-05-12 13:17:44.000', 'Juan Vera', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15733FED62D0EB8B5EE0', 'Nordea Investment Management AB', NULL, NULL, NULL, 'nordea.com', '', 0, 0, 5, NULL, '2018-01-24 08:57:45.000', 'Deependra Negi', '2022-05-12 13:18:04.000', 'Deependra Negi', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Canaccord Genuity', NULL, 'London, UK', NULL, 'canaccordgenuity.com', '', 0, 0, 0, NULL, '2018-02-08 18:53:06.000', 'Melissa Allison', '2019-10-04 20:40:16.000', 'Melissa Allison', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFF1481D524994041EB73B3', 'Capital Four Management', NULL, '0', NULL, 'capital-four.com', '', 0, 0, 5, NULL, '2018-02-08 18:58:13.000', 'Alexandra Pilet', '2022-03-15 09:50:13.000', 'Alexandra Pilet', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327974019202E84E2B6', 'Marathon AM', NULL, '0', NULL, 'marathon.co.uk', '', 0, 0, 5, NULL, '2018-02-08 19:01:45.000', 'Christos Gardikis', '2022-03-28 08:44:30.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13279000E46021A8362B', 'Finisterre Capital', NULL, '0', NULL, 'finisterrecapital.com', '', 0, 0, 0, NULL, '2018-02-08 21:03:58.000', 'Matteo Buschittari', '2020-02-04 14:14:45.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15F14E25F2807ABB5615', 'London and Capital', NULL, '0', NULL, 'londonandcapital.com', '', 0, 0, 5, NULL, '2018-02-08 21:05:05.000', 'Christos Gardikis', '2021-01-02 03:47:39.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327909F51406488A4DD', 'CQS', NULL, '0', NULL, 'cqsm.com', '', 0, 0, 0, NULL, '2018-02-08 21:07:06.000', 'Anjali Kumari', '2021-04-19 10:27:34.000', 'Anjali Kumari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD155077EAC051818A45B', 'EMSO', NULL, '0', NULL, 'emso.com', '', 0, 0, 5, NULL, '2018-02-08 21:09:20.000', 'Matteo Buschittari', '2020-01-28 13:20:48.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327907A817084BE5FBB', 'EVLI', NULL, '2', NULL, 'evli.com', '', 0, 0, 5, NULL, '2018-02-08 21:10:29.000', 'Juan Vera', '2020-06-30 12:18:53.000', 'Juan Vera', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15EE2BEC6650A4DF3BF7', 'Och-Ziff Capital Management', NULL, 'New York, NY', NULL, 'ozcap.com', '', 0, 0, 0, NULL, '2018-02-08 21:12:46.000', 'Melissa Allison', '2019-10-04 20:40:16.000', 'Melissa Allison', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327906479E05DD1AA20', 'Odey Asset Management', NULL, 'London, UK', NULL, 'odey.com', '', 0, 0, 0, NULL, '2018-02-08 21:14:36.000', 'Melissa Allison', '2019-10-04 20:40:16.000', 'Melissa Allison', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13279782EF80E62EE174', 'Wells Capital Management', NULL, '0', NULL, '@wellsfargo.com,@ihsmarkit.com', '', 0, 0, 5, NULL, '2018-02-20 19:10:13.000', 'Maria Huerfano', '2021-02-09 12:17:27.000', 'Maria Huerfano', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA132790689D606E4D2A1A', 'LGT', NULL, '0', NULL, 'lgt.com', '', 0, 0, 5, NULL, '2018-02-22 22:38:01.000', 'Deependra Negi', '2019-03-15 09:34:08.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15EC5C19F970EFC3152', 'Sycomore Asset Management', NULL, '0', NULL, '@sycomore-am.com', '', 0, 0, 5, NULL, '2018-03-01 15:48:49.000', 'Matteo Buschittari', '2020-04-02 09:28:43.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('27FA6A36158AC14E2A804D43C49A', 'Glen Point Capital', NULL, '0', NULL, '@glenpointcapital.com', '', 0, 0, 5, NULL, '2018-03-01 15:51:22.000', 'Christos Gardikis', '2019-10-29 11:12:30.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF4FE6CFA13E5D3F6196090488345', 'Neuberger Berman Management', NULL, '0', NULL, '@nb.com', '', 0, 0, 5, NULL, '2018-03-01 15:54:05.000', 'Deependra Negi', '2022-02-08 17:17:03.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F160A34C3D080BE0E975B', 'Fidante Partners Europe', NULL, NULL, NULL, '@fidante.com', '', 0, 0, 5, NULL, '2018-03-02 20:46:59.000', 'Juan Vera', '2019-03-07 19:06:31.000', 'Juan Vera', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DA4086503600CC25', 'Artemis Investment Management LLP', NULL, '0', NULL, 'artemisfunds.com', NULL, 0, 1, 5, NULL, '2018-03-20 11:57:34.000', 'Robert Beauregard', '2019-04-03 02:17:32.000', 'Robert Beauregard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327975801D04FE9B1C', 'JP Morgan Asset Management', NULL, '0', NULL, 'jpmorgan.com', NULL, 0, 0, 5, NULL, '2018-03-27 02:22:06.000', 'Christos Gardikis', '2022-03-07 16:48:07.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15E3DAD8C830A52C7713', 'Hosking Partners LLP', NULL, '0', NULL, 'hoskingpartners.com', NULL, 0, 0, 1, NULL, '2018-03-27 15:45:42.000', 'Maria Huerfano', '2022-03-15 10:19:29.000', 'Maria Huerfano', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1628D40A02203109093E', 'Vanguard Asset Management', NULL, '0', NULL, 'vanguard.co.uk', NULL, 0, 0, 5, NULL, '2018-04-03 14:59:52.000', 'Deependra Negi', '2019-03-25 08:58:24.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1629CC1410E033D27F4B', 'ABN AMRO', NULL, 'EMEA', NULL, 'nl.abnamro.com', NULL, 0, 0, 1, NULL, '2018-04-06 19:50:31.000', 'Robert Beauregard', '2018-06-25 13:56:33.000', 'Robert Beauregard', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD162BEE2564C0E7FD59E1', 'GULF INTERNATIONAL BANK (UK) LIMITED', NULL, '0', NULL, 'gibuk.com', NULL, 0, 0, 5, NULL, '2018-04-12 18:53:18.000', 'Matteo Buschittari', '2022-02-16 09:28:49.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'Manikay Partners UK LLP', NULL, '0', NULL, 'manikaypartners.com', NULL, 0, 0, 5, NULL, '2018-04-13 13:21:24.000', 'Matteo Buschittari', '2019-07-10 09:36:03.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD162DAACBDB70F5F94283', 'BMO UK', NULL, '0', NULL, 'bmogam.com', NULL, 0, 0, 1, NULL, '2018-04-18 19:05:48.000', 'Matteo Buschittari', '2022-03-16 17:15:53.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'GAM', NULL, NULL, NULL, 'gam.com', NULL, 0, 0, 5, NULL, '2018-04-24 17:46:32.000', 'Vivek Bernard', '2018-09-06 13:33:14.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD162F9DF9C32095B8E168', 'Williams Trading LLC', NULL, '0', NULL, '@wtco.com', '', 0, 0, 5, NULL, '2018-04-24 17:56:36.000', 'Juan Vera', '2021-04-19 16:44:12.000', 'Juan Vera', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16308F4BE5D0A3A02A22', 'GAM London Ltd', NULL, '0', NULL, '@gmail.com,@gam.com', NULL, 0, 0, 5, NULL, '2018-04-25 13:18:28.000', 'Kartik Arthanat', '2019-04-30 12:03:02.000', 'Kartik Arthanat', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16308F61AB2064C8D43C', 'GAM International Management Ltd', NULL, NULL, NULL, 'gam.com', NULL, 0, 0, 5, NULL, '2018-04-25 13:19:19.000', 'Vivek Bernard', '2018-09-19 18:03:15.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327906CDE7084B38397', 'Paulson Europe LLP', NULL, '', NULL, 'paulsoncapital.com,paulsonco.com', NULL, 0, 1, 5, NULL, '2018-04-25 18:45:17.000', 'Robert Beauregard', '2018-04-30 09:56:11.000', 'Sam Alcock', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF4FE6CFA140EA25D7D20526FDBF', 'Cantab Capital Partners LLP', NULL, '0', NULL, 'cantabcapital.com', '', 0, 0, 5, NULL, '2018-04-26 14:48:33.000', 'Deependra Negi', '2021-08-17 14:06:18.000', 'Deependra Negi', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'Cantab Capital Partners LLP(do not use)', NULL, '', NULL, '@cantabcapital.com', NULL, 0, 0, 5, NULL, '2018-04-27 17:02:38.000', 'Michael Fryer', '2018-04-27 17:19:47.000', 'Michael Fryer', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16CF86B8C350160A658E', 'CHALLENGER MANAGEMENT SERVICES UK LIMITED', NULL, '0', NULL, '@fidante.com, @challenger.com.au,', '', 0, 0, 1, NULL, '2018-04-27 20:21:14.000', 'Matteo Buschittari', '2021-02-01 14:05:33.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'WilliamsUK', NULL, '', NULL, '@williamsuk.com', NULL, 0, 0, 5, NULL, '2018-05-09 10:53:44.000', 'Mahendra Singh', '2018-05-09 10:53:44.000', 'Mahendra Singh', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13278EC29520D1E59CCD', 'Barings*', NULL, '2', NULL, 'barings.com', NULL, 0, 0, 1, NULL, '2018-08-16 14:19:20.000', 'Vivek Bernard', '2018-09-19 18:05:15.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16E3E1DDF820462C39EC', 'Trinity Street Asset Management LLP', NULL, '2', NULL, '@trinitystreetam.com', NULL, 0, 0, 1, NULL, '2018-09-12 19:31:16.000', 'Matteo Buschittari', '2022-04-28 14:43:30.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('27FA6A3615A13D58D800C7665716', 'Brevan_Howard', NULL, '2', NULL, 'brevanhoward.com,coremont.com', NULL, 0, 0, 1, NULL, '2018-09-24 21:29:22.000', 'Matteo Buschittari', '2022-06-06 09:53:49.000', 'Matteo Buschittari', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16DF9D784D70E4C04C5B', 'Cheyne Capital', NULL, '0', NULL, '@Cheynecapital.com', NULL, 0, 0, 1, NULL, '2018-10-16 10:07:00.000', 'Alexandra Pilet', '2021-04-12 17:06:02.000', 'Alexandra Pilet', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'State Street Bank Luxembourg SCA', NULL, '2', NULL, 'statestreet.com', NULL, 0, 0, 1, 'M', '2018-11-29 20:55:56.000', 'Christos Gardikis', '2020-01-07 08:48:06.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13278EDFF7805ADE24ED', 'BAE Systems', NULL, '2', NULL, '@baesystems.com', NULL, 0, 0, 1, NULL, '2018-12-11 17:10:11.000', 'Deependra Negi', '2021-04-28 17:47:43.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327970124F097C76BB0', 'Imperial Capital', NULL, '2', NULL, 'imperialcapital.com', NULL, 0, 0, 1, 'M', '2018-12-13 21:50:16.000', 'Christos Gardikis', '2021-02-02 16:41:30.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Ameriprise', NULL, '4', NULL, '@ampf.com', NULL, 0, 0, 3, NULL, '2019-01-07 19:30:19.000', 'Deependra Negi', '2019-03-29 09:10:20.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'Driehaus', NULL, '2', NULL, 'driehaus.com', NULL, 0, 0, 1, NULL, '2019-01-15 03:27:04.000', 'Deependra Negi', '2019-05-03 20:34:00.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Pictet Global Markets (UK) Limited', NULL, '2', NULL, 'pictet.com', NULL, 0, 0, 1, NULL, '2019-01-18 13:54:24.000', 'Matteo Buschittari', '2020-01-22 16:57:24.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'Pictet', NULL, '', NULL, NULL, NULL, 0, 0, 1, NULL, '2019-01-18 19:18:41.000', 'INDICES-TEST-USER', '2019-01-18 19:18:41.000', 'INDICES-TEST-USER', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'Natixis Investment Services', NULL, '2', NULL, 'natixis.com', NULL, 0, 0, 5, NULL, '2019-01-21 03:00:54.000', 'Laura Merce', '2022-12-15 15:47:22.000', 'Laura Merce', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'BMO Portugal', NULL, '2', NULL, 'bmogam.com', NULL, 0, 0, 5, NULL, '2019-01-23 14:42:01.000', 'Juan Vera', '2022-03-10 16:46:43.000', 'Juan Vera', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E4B74026A033E1D2EE', 'USS Investment Management', NULL, '2', NULL, 'uss.co.uk', NULL, 0, 0, 1, NULL, '2019-01-29 17:03:31.000', 'Juan Vera', '2022-05-12 13:18:08.000', 'Juan Vera', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF4FE6CFA13E4349B6F41B9D8B744', 'BMO UK TRC', NULL, '2', NULL, 'bmogam.com', '', 0, 0, 1, NULL, '2019-03-28 01:16:42.000', 'Matteo Buschittari', '2021-03-29 07:01:01.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15EC3F4F24B58C1CF678', 'Vanguard Asset Mgt', NULL, '0', NULL, 'vanguard.co.uk', '', 0, 0, 5, NULL, '2019-04-04 00:58:59.000', 'Robert Beauregard', '2019-04-04 01:15:19.000', 'Robert Beauregard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13E6628E351022169702', 'Société Générale', NULL, '4', NULL, '@sgcib.com', '', 0, 0, 2, NULL, '2019-07-01 12:32:12.000', 'Deependra Negi', '2019-12-16 19:54:04.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13DF51D1BA20AA15327D', 'Credit Suisse', NULL, '0', NULL, '@credit-suisse.com', '', 0, 0, 5, NULL, '2019-05-13 18:39:45.000', 'Amit Grover', '2021-05-03 14:03:03.000', 'Amit Grover', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, '_DNU CVC Capital Partners', NULL, '0', NULL, 'ihsmarkit.com,@cvc.com', '', 0, 0, 5, NULL, '2019-05-28 14:56:02.000', 'Juan Vera', '2022-05-18 16:53:14.000', 'Juan Vera', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16B0A52A6DE01D5E8BB4', 'JP Morgan Securities LLC', NULL, '0', NULL, '@ihsmarkit.com,@jpmorgan.com,@jpmchase.com', '', 0, 0, 1, NULL, '2019-05-31 17:09:28.000', 'Patrick Bohman', '2021-11-10 15:50:09.000', 'Patrick Bohman', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'BNP PARIBAS DEALING SERVICES', NULL, '0', NULL, '@bnpparibas.com', '', 0, 0, 1, NULL, '2019-06-10 10:03:09.000', 'Juan Vera', '2022-05-12 13:28:43.000', 'Juan Vera', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16B714BF48D0D4C7B694', 'Axa Advisors', NULL, '0', NULL, 'axa-im.com', '', 0, 0, 5, NULL, '2019-06-19 17:45:42.000', 'AmitKumar Gandhi', '2019-06-19 20:29:20.000', 'AmitKumar Gandhi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('7409F34217FD746E232038B7284B', 'Abel Noser Holdings, LLC', NULL, '0', NULL, '@abelnoser.com', '', 0, 0, 1, NULL, '2019-06-24 11:47:55.000', 'Edward Plante', '2022-04-29 15:19:58.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'Sarasin & Partners LLP', NULL, '2', NULL, 'sarasin.co.uk', '', 0, 0, 5, NULL, '2019-07-15 15:58:32.000', 'Amit Pahwa', '2021-04-15 19:48:28.000', 'Amit Pahwa', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C00C837C308F775AD4', 'CLSA Americas LLC', NULL, '4', NULL, 'clsa.com', '', 0, 0, 5, NULL, '2019-07-15 20:51:03.000', 'Kartik Arthanat', '2020-07-16 20:38:12.000', 'Kartik Arthanat', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES(NULL, 'Anchorage', NULL, '0', NULL, '@@anchoragecap.com', '', 0, 0, 1, NULL, '2019-08-13 12:40:42.000', 'Deependra Negi', '2019-08-13 12:40:42.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16D078DFA260E7034067', 'CVC Credit Partners Investment Management Limited', NULL, '2', NULL, '@cvc.com', '', 0, 0, 0, NULL, '2019-09-06 17:31:59.000', 'Matteo Buschittari', '2021-11-29 13:27:52.000', 'Matteo Buschittari', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327908A2C302CF1B260', 'DNB Bank ASA', NULL, '2', NULL, '@dnb.no', '', 0, 0, 1, NULL, '2019-10-02 09:17:48.000', 'Christos Gardikis', '2021-01-22 10:15:32.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16D91CDE223097A4AA40', 'Lake Street Capital Markets LLC', NULL, '4', NULL, '@lakestreetcm.com', '', 0, 0, 0, NULL, '2019-10-03 14:29:33.000', 'Stephanie Ginsberg', '2021-07-07 19:51:12.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16D91CF600B06D199677', 'SMBC Nikko Securities Americas Inc', NULL, '4', NULL, '@smbcnikko-si.com', '', 0, 0, 0, NULL, '2019-10-03 14:39:26.000', 'Edward Plante', '2019-11-01 12:48:10.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C677417D009F290259', 'Fifth Third Securities Inc', NULL, '4', NULL, '@53.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:26.000', 'Swati Gangwani', '2021-05-03 19:56:06.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615DC3861D450763A3E97', 'Churchill Capital Usa Inc', NULL, '0', NULL, '@churchillcap.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:27.000', 'Edward Plante', '2022-02-08 15:40:18.000', 'Edward Plante', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13278F003110DF8E02D2', 'Allen Co', NULL, '0', NULL, '@allenco.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:29.000', 'Edward Plante', '2020-05-06 20:14:06.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD162DFF3267D0FE9F7249', 'Robert W Baird Co Inc', NULL, '0', NULL, '@rwbaird.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:30.000', 'Stephanie Ginsberg', '2022-02-08 16:04:25.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15632FBD9E604B6636EF', 'Canaccord Genuity Inc', NULL, '0', NULL, '@ihsmarkit.com,@cfg.com,@cgf.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:31.000', 'Edward Plante', '2020-12-04 03:09:42.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16ABCDBD3F70E303E54', 'Truist Securities Inc', NULL, '0', NULL, '@truist.com,@suntrust.com,@SunTrust.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:32.000', 'Christopher Perry', '2022-10-03 15:31:06.000', 'Christopher Perry', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DA61A7B063C2F016', 'Bay Crest Partners LLC', NULL, '0', NULL, '@baycny.com,@baycrestpartners.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:33.000', 'Edward Plante', '2019-10-30 12:45:53.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15E3DA646360F58AF726', 'Berenberg Capital Markets LLC', NULL, '0', NULL, 'berenberg-us.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:34.000', 'Stephanie Ginsberg', '2020-07-31 15:33:01.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F162DFE8C1930843F76B9', 'BGC Financial L P', NULL, '0', NULL, '@bgcpartners.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:35.000', 'Edward Plante', '2020-12-04 03:08:43.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C677054110D12A2859', 'Capital One Securities Inc', NULL, '0', NULL, '@capitalone.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:36.000', 'Edward Plante', '2020-12-05 03:31:57.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C6770A67408A04FF6', 'Cicc US Securities Inc', NULL, '0', NULL, '@ciccus.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:37.000', 'Edward Plante', '2020-01-02 20:40:49.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C705B1713099A764C0', 'Sanford C Bernstein Co LLC', NULL, '0', NULL, '@alliancebernstein.com,@bernstein.com,@ihsmarkit.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:38.000', 'Stephanie Ginsberg', '2022-11-16 20:32:31.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DA933D606F8B68BC', 'Craig Hallum Capital Group LLC', NULL, '0', NULL, '@craig-hallum.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:39.000', 'Edward Plante', '2020-11-30 15:42:33.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C6771DF050AAA5DD1B', 'Glendale Securities Inc', NULL, '0', NULL, '@glendalesecurities.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:40.000', 'Stephanie Ginsberg', '2022-02-08 18:19:28.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C6771BACB07BDBCDCA', 'Green Street Trading LLC', NULL, '0', NULL, '@greenstreettrading.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:41.000', 'sysadmin_606', '2019-10-04 14:31:41.000', 'sysadmin_606', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1636B1D310606F728654', 'Jones Trading Institutional Services', NULL, '0', NULL, '@jonestrading.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:42.000', 'Edward Plante', '2022-04-19 17:52:47.000', 'Edward Plante', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C677248D0019A43143', 'National Alliance Securities LLC', NULL, '0', NULL, '@natalliance.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:43.000', 'Stephanie Ginsberg', '2020-10-07 18:29:44.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15E3DB1C74E0E1871250', 'Needham and Company LLC', NULL, '0', NULL, '@needhamco.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:44.000', 'Edward Plante', '2020-05-19 15:45:08.000', 'Edward Plante', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD163B5F9C0240AA8C6AE7', 'Strategas Research Partners LLC', NULL, '0', NULL, '@strategasrp.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:45.000', 'Stephanie Ginsberg', '2020-05-20 14:48:40.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C677264430EFEAB299', 'TD Securities USA LLC', NULL, '0', NULL, '@tdsecurities.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:47.000', 'Edward Plante', '2019-12-19 18:57:35.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C677295680D2DB6504', 'Themis Trading LLC', NULL, '0', NULL, '@themistrading.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:48.000', 'Edward Plante', '2019-11-13 15:23:29.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C677532540E2890D81', 'Wedbush Securities LLC', NULL, '0', NULL, '@wedbush.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:49.000', 'Stephanie Ginsberg', '2021-07-14 13:45:18.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C8345646931E05C7AA', 'BMO Capital Markets Corp', NULL, '0', NULL, '@bmo.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:50.000', 'Edward Plante', '2020-05-06 20:17:01.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C87006ED17358AE4A', 'CL King Associates Inc', NULL, '0', NULL, '@clking.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:51.000', 'Stephanie Ginsberg', '2022-02-08 15:41:44.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16347277FCD0AB366929', 'Compass Point Research Trading LLC', NULL, '0', NULL, '@compasspointllc.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:52.000', 'Paul Rennard', '2022-01-18 18:20:41.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16398D35F2C0A2138E33', 'Wells Fargo Securities LLC', NULL, '0', NULL, '@wellsfargo.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:53.000', 'Edward Plante', '2020-11-23 04:25:57.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DBB7EA407035641D', 'JMP Securities LLC', NULL, '0', NULL, '@jmpsecurities.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:54.000', 'Stephanie Ginsberg', '2022-04-18 18:01:56.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FBF90FB3A066DEC7A2', 'Davenport and Company LLC', NULL, '0', NULL, '@investdavenport.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:55.000', 'Stephanie Ginsberg', '2021-07-27 14:38:04.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C96B66FF50D7390FC0', 'Tradition Securities and Derivatives', NULL, '0', NULL, '@tradition.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:56.000', 'Stephanie Ginsberg', '2021-05-18 17:21:40.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9614FF82730F5055AAAB36', 'Safra Securities LLC', NULL, '0', NULL, '@safra.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:57.000', 'Amit Pahwa', '2021-06-08 19:26:22.000', 'Amit Pahwa', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16CAFFE4F2F081321547', 'SVB Securities LLC', NULL, '0', NULL, '@svbleerink.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:58.000', 'Montel Hardy', '2022-12-15 21:15:11.000', 'Montel Hardy', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DAA91170C1C7374', 'Elevation LLC', NULL, '0', NULL, '@elevationsecurities.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:31:59.000', 'Paul Rennard', '2022-02-11 17:02:39.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA132790558490A4A09A1B', 'Scotia Capital (USA) Inc', NULL, '0', NULL, '@scotiabank.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:32:00.000', 'Stephanie Ginsberg', '2021-05-12 13:48:26.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16D04B6D10C05A9B074F', 'Northern Trust Securities Inc', NULL, '0', NULL, '@ntrs.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:32:01.000', 'Amit Grover', '2021-05-12 12:17:15.000', 'Amit Grover', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF4FE6CFA13A0C845E18030B91255', 'First Republic Securities Company LLC', NULL, '0', NULL, '@firstrepublic.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:32:02.000', 'Stephanie Ginsberg', '2020-05-31 05:22:06.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16D040ECA190E68EB3ED', 'XP Investment US LLC', NULL, '0', NULL, '@xpsecurities.com,@xpi.us', NULL, 0, 0, 2, NULL, '2019-10-04 14:32:03.000', 'Colton Spence', '2022-11-01 13:45:20.000', 'Colton Spence', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16D079485E802B51F6D0', 'DA Davidson Company', NULL, '0', NULL, '@dadco.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:32:04.000', 'Edward Plante', '2020-11-25 14:55:25.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16D0792B8D50A4D666BC', 'China Renaissance Securities US Inc', NULL, '4', NULL, '@chinarenaissance.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:32:05.000', 'Edward Plante', '2020-05-06 20:41:12.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD162F939D6C9029BF5393', 'BTIG LLC', NULL, '0', NULL, 'btig.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:32:06.000', 'Edward Plante', '2020-12-04 03:09:28.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13279086F890CCB4165A', 'Fidessa', NULL, '0', NULL, '@fidessa.com', NULL, 0, 0, 2, NULL, '2019-10-04 14:32:08.000', 'sysadmin_606', '2019-10-04 14:32:08.000', 'sysadmin_606', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13DEF4CB8F505C711727', 'Ameriprise Financial Inc', NULL, '4', NULL, '@ihsmarkit.com', NULL, 0, 0, 3, NULL, '2019-01-07 19:30:19.000', 'Stephanie Ginsberg', '2020-05-06 19:46:13.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327974E59B0FBEF5FCF', 'SG Americas', NULL, '4', NULL, '@sgcib.com,socgen.com', '', 0, 0, 0, NULL, '2019-06-27 17:40:37.000', 'Edward Plante', '2020-12-04 03:28:43.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16D8CC0533E0DF65E4A6', 'Drexel Hamilton LLC', NULL, '4', NULL, '@drexelhamilton.com', '', 0, 0, 0, NULL, '2019-10-02 14:14:04.000', 'Edward Plante', '2022-02-08 15:41:55.000', 'Edward Plante', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16CF8684A3B06258E80F', 'Cantor Fitzgerald LP', NULL, '4', NULL, '@cantor.com', '', 0, 0, 0, NULL, '2019-10-02 14:27:35.000', 'Stephanie Ginsberg', '2021-11-05 14:51:34.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16D8CC4B6590A1EC0F8E', 'ONeil Securities Inc', NULL, '4', NULL, '@oneilsecurities.com,@daicompanies.com', '', 0, 0, 0, NULL, '2019-10-02 14:42:15.000', 'Swati Gangwani', '2021-05-26 02:07:41.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16D8CC71DE9080F8EA70', 'DNB Asset Management AS', NULL, '0', NULL, '@dnb.no', '', 0, 0, 0, NULL, '2019-10-02 14:48:45.000', 'Melissa Allison', '2019-10-02 14:48:45.000', 'Melissa Allison', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C705B70370A67AF4B3', 'Jefferies Group LLC', NULL, '0', NULL, '@jefferies.com', '', 0, 0, 5, NULL, '2019-08-07 21:17:37.000', 'Kartik Arthanat', '2021-02-15 23:51:54.000', 'Kartik Arthanat', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C676FF71D06599A524', 'BMA Securities LLC', NULL, '4', NULL, '@bmasecurities.com', '', 0, 0, 5, NULL, '2019-07-26 17:05:34.000', 'Jack Love', '2021-06-22 19:11:14.000', 'Jack Love', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DA6C9B804D20E347', 'Boenning and Scattergood Inc', NULL, '0', NULL, '@boenninginc.com', '', 0, 0, 5, NULL, '2019-08-07 14:35:19.000', 'Nikhil Ravi', '2021-04-28 14:01:55.000', 'Nikhil Ravi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C677028E103AF18112', 'Bulltick LLC', NULL, '0', NULL, '@bulltick.com', '', 0, 0, 5, NULL, '2019-08-07 14:36:27.000', 'Edward Plante', '2021-06-30 20:47:01.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C6770C5E90C05C4247', 'Cowen Prime Services LLC', NULL, '0', NULL, '@cowen.com', '', 0, 0, 5, NULL, '2019-08-07 16:52:40.000', 'Christopher Perry', '2022-09-15 12:43:18.000', 'Christopher Perry', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C677450AE0311EB217', 'Marex Capital Markets Inc.', NULL, '0', NULL, '@edfmancapital.com', '', 0, 0, 5, NULL, '2019-08-07 21:06:03.000', 'Montel Hardy', '2022-12-01 17:33:45.000', 'Montel Hardy', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C67716EDC02018FD90', 'Edward Jones Co', NULL, '0', NULL, '@edwardjones.com', '', 0, 0, 5, NULL, '2019-08-07 21:06:59.000', 'Paul Rennard', '2021-11-02 14:28:50.000', 'Paul Rennard', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C677195F30F013A15F', 'Gagnon Securities LLC', NULL, '0', NULL, '@gagnonsec.com', '', 0, 0, 5, NULL, '2019-08-07 21:10:31.000', 'Edward Plante', '2020-08-11 02:40:01.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C705B406B0B33A0E87', 'Geneos Wealth Management Inc', NULL, '0', NULL, '@geneoswealth.com', '', 0, 0, 5, NULL, '2019-08-07 21:12:18.000', 'Swati Gangwani', '2021-03-29 20:07:42.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C705B55D60F1DE1524', 'Invemed Associates LLC', NULL, '0', NULL, '@invemed.com', '', 0, 0, 5, NULL, '2019-08-07 21:16:02.000', 'Stephanie Ginsberg', '2021-08-03 20:44:04.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C6773EB1301F75C706', 'Lightspeed Financial Services Group LLC', NULL, '4', NULL, '@limebrokerage.com', '', 0, 0, 5, NULL, '2019-08-07 21:19:16.000', 'Vincent Dammann', '2021-05-21 21:02:37.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C6772290748D63EF70', 'LPL Financial Holdings Inc', NULL, '0', NULL, '@equitable.com,@lplfinancial.com', '', 0, 0, 5, NULL, '2019-08-07 21:20:51.000', 'Swati Gangwani', '2021-09-30 02:34:30.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C6773BF2106FE671D8', 'Millington Securities Inc', NULL, '0', NULL, '@millington.com,@millingtonsecurities.com', '', 0, 0, 5, NULL, '2019-08-07 21:22:03.000', 'Stephanie Ginsberg', '2022-08-30 16:35:25.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C705B849604F0DF659', 'Moors and Cabot Inc', NULL, '0', NULL, '@moorscabot.com', '', 0, 0, 5, NULL, '2019-08-07 21:24:00.000', 'Stephanie Ginsberg', '2020-12-16 16:36:11.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C67731C650BC03239F', 'MS Howells and Company Inc', NULL, '0', NULL, '@mshowells.com', '', 0, 0, 5, NULL, '2019-08-07 21:24:45.000', 'Kartik Arthanat', '2022-09-07 19:02:20.000', 'Kartik Arthanat', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C6772DB390CDCFB600', 'RF Lafferty Company', NULL, '0', NULL, '@rflafferty.com', '', 0, 0, 5, NULL, '2019-08-07 21:27:17.000', 'Paul Rennard', '2022-05-20 20:36:19.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16C6772BA5B03321F74', 'Tocqueville Securities LP', NULL, '4', NULL, '@tocqueville.com', '', 0, 0, 5, NULL, '2019-08-07 21:31:22.000', 'Stephanie Ginsberg', '2020-06-01 18:35:44.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C879D523709F687A83', 'Dawson James', NULL, '4', NULL, '@dawsonjames.com', '', 0, 0, 0, NULL, '2019-08-13 15:07:59.000', 'Paul Rennard', '2022-02-11 16:56:21.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C8796074B065DE5388', 'Wealthfront Inc', NULL, '4', NULL, '@wealthfront.com', '', 0, 0, 0, NULL, '2019-08-13 17:10:41.000', 'Andrew McMeekin', '2021-06-24 16:31:43.000', 'Andrew McMeekin', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16C91E7E06409D1B27AC', 'Securities Americas Inc', NULL, '4', NULL, '@saionline.com,@advisorgroup.com', '', 0, 0, 5, NULL, '2019-08-14 21:00:39.000', 'Stephanie Ginsberg', '2021-05-05 15:02:32.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA1327907C65406D09513D', 'CIBC Capital Markets', NULL, '4', NULL, '@cibc.com', '', 0, 0, 0, NULL, '2019-08-15 18:56:18.000', 'Edward Plante', '2022-10-28 21:07:37.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16CF885937901080A38', 'Phillip  Capital Inc', NULL, '4', NULL, '@phillipcapital.com', '', 0, 0, 0, NULL, '2019-09-03 19:34:09.000', 'Edward Plante', '2020-02-05 02:59:36.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15E3DA908100A65F9A9', 'Axos Clearing LLC', NULL, '4', NULL, '@corclearing.com,@axosclearing.com', '', 0, 0, 0, NULL, '2019-09-06 12:31:56.000', 'Christopher Perry', '2022-02-08 15:39:55.000', 'Christopher Perry', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16E1B26B99A0EA5E47EF', 'RW Pressprich Co', NULL, '0', NULL, '@pressprich.com', '', 0, 0, 5, NULL, '2019-08-07 21:26:34.000', 'Edward Plante', '2020-12-04 03:27:14.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1717A6571300B1C97574', 'TR Winston', NULL, '0', NULL, '@trwinston.com', '', 0, 0, 5, NULL, '2019-08-07 21:35:08.000', 'Janet Burke', '2020-10-17 03:01:26.000', 'Janet Burke', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD168F126D8ED0F114FBFE', 'Macquarie Capital (USA) Inc', NULL, '4', NULL, '@macquarie.com', '', 0, 0, 5, NULL, '2019-09-19 17:13:17.000', 'Stephanie Ginsberg', '2021-09-15 13:20:08.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1679EB445850FBCBAC1E', 'IHSM Demo', NULL, '4', NULL, 'ihsmarkit.com,markit.com', '', 0, 0, 0, NULL, '2017-11-22 22:37:03.000', 'Kartik Arthanat', '2021-03-11 16:07:35.000', 'Kartik Arthanat', 1, 0, 'Product Demo Client');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16DB0C2B3380729F05A4', 'EFG Capital International Corp', NULL, '4', NULL, '@efgcapital.com,@efgam.com', '', 0, 0, 5, NULL, '2019-10-09 14:56:44.000', 'Edward Plante', '2019-10-29 13:43:08.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD163B5F3B3C4063A97F0B', 'Seaport Global Securities', NULL, '4', NULL, '@seaportglobal.com', '', 0, 0, 5, NULL, '2019-10-09 15:02:17.000', 'Edward Plante', '2020-12-04 03:28:21.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16D4F98FB080F8BEA4FE', 'Barclays Capital Inc', NULL, '4', NULL, '@barclays.com', '', 0, 0, 0, NULL, '2019-10-28 14:02:09.000', 'Sucheta Gupta', '2021-10-25 03:22:16.000', 'Sucheta Gupta', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16CF86B11590B3AA2792', 'The Vanguard Group Inc', NULL, '4', NULL, '@vanguard.com', '', 0, 0, 5, NULL, '2019-11-02 14:35:07.000', 'Amit Pahwa', '2022-02-08 16:06:40.000', 'Amit Pahwa', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16E38F57A7B0B7518A6C', 'MKM Partners', NULL, '4', NULL, '@mkmpartners.com', '', 0, 0, 5, NULL, '2019-11-05 03:49:05.000', 'Paul Rennard', '2022-09-08 17:52:10.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16E4B81BE68065AE783B', 'MUFG Securities Americas Inc', NULL, '4', NULL, '@mufgsecurities.com', '', 0, 0, 5, NULL, '2019-11-08 21:04:13.000', 'Edward Plante', '2020-09-02 01:55:21.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615DC6C0FD0D08D818D87', 'Beta Capital Securities LLC', NULL, '4', NULL, '@betacap.com,@creand.us', '', 0, 0, 5, NULL, '2019-11-14 21:11:51.000', 'Paul Rennard', '2022-01-04 18:03:55.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16ECA7E04420EE4B9754', 'UBS Financial Services Inc', NULL, '4', NULL, '@ubs.com', '', 0, 0, 5, NULL, '2019-12-03 07:01:05.000', 'Swati Gangwani', '2021-03-03 16:40:39.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16EF5CBD0BB0F9368E0F', 'Johnson Rice and Company LLC', NULL, '4', NULL, '@jrco.com', '', 0, 0, 0, NULL, '2019-12-11 16:41:56.000', 'Edward Plante', '2020-11-25 15:00:50.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16EF5E803A104F69D562', 'Watermill Institutional Trading LLC', NULL, '4', NULL, '@watermilltrading.com', '', 0, 0, 5, NULL, '2019-12-11 17:11:55.000', 'Swati Gangwani', '2022-08-25 15:47:31.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16EFDDC11FC028DCA800', 'Two Sigma Securities LLC', NULL, '4', NULL, '@twosigma.com,@tssecurities.com', '', 0, 0, 5, NULL, '2019-12-13 04:39:08.000', 'Edward Plante', '2020-12-04 03:31:46.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16F0F38758207BDC0D2', 'First Dallas Securities Inc', NULL, '4', NULL, '@firstdallas.com,@hodgescapital.com', '', 0, 0, 5, NULL, '2019-12-16 15:23:56.000', 'Paul Rennard', '2021-11-10 20:27:25.000', 'Paul Rennard', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'BFAM_CDS', NULL, '0', NULL, '@IHSMARKIT.COM,@bfam-partners.com', '', 0, 0, 1, NULL, '2019-12-20 08:26:56.000', 'Gerard McKenna', '2020-03-06 17:48:42.000', 'Gerard McKenna', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16FE4A16169010D1453D', 'Natixis Securities Americas LLC', NULL, '4', NULL, '@natixis.com', '', 0, 0, 5, NULL, '2020-01-25 04:46:26.000', 'Vincent Dammann', '2020-11-08 13:16:54.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD16FE49F49BD0B57C0591', 'Joseph Gunnar Co LLC', NULL, '4', NULL, '@jgunnar.com', '', 0, 0, 5, NULL, '2020-01-25 04:54:49.000', 'Edward Plante', '2020-12-04 03:23:42.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16FE4A7EE580A815876B', 'Wellington Shields and Co LLC', NULL, '4', NULL, '@wellington.com,@WellingtonShields.com', '', 0, 0, 5, NULL, '2020-01-25 05:14:12.000', 'Vincent Dammann', '2021-11-29 20:13:00.000', 'Vincent Dammann', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16428A05D49019892DF6', 'Santander Investment Securities Inc', NULL, '4', NULL, '@santander.us,@external.santander.us,@servexternos.gruposantander.com', '', 0, 0, 5, NULL, '2020-01-27 19:23:32.000', 'Edward Plante', '2020-05-07 15:14:48.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Sandler ONeill and Partners - INACTIVE', NULL, '4', NULL, '@sandleroneill.com', '', 0, 0, 5, NULL, '2020-01-29 15:46:35.000', 'Stephanie Ginsberg', '2021-04-29 18:58:19.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16F0F349A310AE30E7EE', 'Aqua Securities LP', NULL, '4', NULL, '@aquaequities.com,@cantor.com', '', 0, 0, 5, NULL, '2020-02-15 00:51:00.000', 'Edward Plante', '2022-02-08 15:39:30.000', 'Edward Plante', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DB3604301DD16C45', 'Penserra Securities LLC', NULL, '4', NULL, '@penserra.com', '', 0, 0, 5, NULL, '2020-02-27 12:02:11.000', 'Edward Plante', '2021-12-21 21:16:41.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F170AE2BC41B09353DFCA', 'Hovde Group LLC', NULL, '0', NULL, '@hovdegroup.com', '', 0, 0, 5, NULL, '2020-03-06 05:30:53.000', 'Edward Plante', '2020-05-06 20:46:57.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD170D1B83E9E0D005870D', 'The Investment Center Inc', NULL, '4', NULL, '@investctr.com', '', 0, 0, 5, NULL, '2020-03-13 11:40:09.000', 'Stephanie Ginsberg', '2020-04-29 19:56:01.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1679D855679072108E85', 'Deutsche Bank Securities Inc', NULL, '4', NULL, '@db.com', '', 0, 0, 5, NULL, '2020-03-20 17:19:00.000', 'Amit Pahwa', '2020-12-15 02:10:31.000', 'Amit Pahwa', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1711242D4EC0E4F1FE5E', 'Maxim Group LLC', NULL, '4', NULL, '@maximgrp.com', '', 0, 0, 0, NULL, '2020-03-25 15:27:22.000', 'Paul Rennard', '2022-05-04 20:19:20.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F17186B499950180779C1', 'Huatai Securities USA', NULL, '4', NULL, '@htsc-us.com', '', 0, 0, 5, NULL, '2020-04-17 12:55:49.000', 'Edward Plante', '2020-04-17 12:55:49.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD171878FBF1207C2311C', 'HC Wainwright', NULL, '4', NULL, '@hcwco.com', '', 0, 0, 5, NULL, '2020-04-17 13:12:16.000', 'Edward Plante', '2020-04-17 13:12:16.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD162DFF207670F6605434', 'Piper Sandler and Co', NULL, '4', NULL, '@cormacteam.com,@psc.com', '', 0, 0, 5, NULL, '2020-05-05 16:09:45.000', 'Paul Rennard', '2022-02-23 19:17:13.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F171F4B0010E0359769E2', 'ThinkEquity LLC', NULL, '4', NULL, '@fordhamfinancial.com,@Think-equity.com', '', 0, 0, 5, NULL, '2020-05-08 14:13:08.000', 'Paul Rennard', '2022-01-06 20:56:02.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD171F4FF61040C8831BEC', 'Merrion Securities LLC', NULL, '4', NULL, '@merriongroup.net', '', 0, 0, 5, NULL, '2020-05-08 14:37:19.000', 'Vincent Dammann', '2021-06-21 21:40:30.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1720AA86F4E0A5A480BB', 'Odeon Capital Group LLC', NULL, '4', NULL, '@OdeonCap.com', '', 0, 0, 5, NULL, '2020-05-12 20:26:37.000', 'Edward Plante', '2020-12-07 14:29:40.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DA508850F0B029A', 'ISP IMI Securities Corporation', NULL, '4', NULL, '@bancaimi.com,@intesasanpaolo.com', '', 0, 0, 5, NULL, '2020-05-12 20:44:35.000', 'Stephanie Ginsberg', '2021-08-24 15:49:39.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15F0B47092F01CE82244', 'Market Securities LLC', NULL, '4', NULL, '@market-securities.us.com,@market-securities.com', '', 0, 0, 5, NULL, '2020-05-14 17:55:22.000', 'Stephanie Ginsberg', '2020-06-23 18:03:32.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1721A1141D906FED4BAE', 'Sturdivant & Co Inc', NULL, '4', NULL, '@sturdivant-co.com,@blueskyservicesonline.com', '', 0, 0, 5, NULL, '2020-05-15 18:25:16.000', 'Edward Plante', '2022-02-08 16:06:16.000', 'Edward Plante', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F16D4F98FB080F8BEA4FE', 'Barclays PLC 2', NULL, '4', NULL, '@barclays.com', '', 0, 0, 2, NULL, '2020-05-16 18:01:17.000', 'Andrew McMeekin', '2022-02-08 15:54:35.000', 'Andrew McMeekin', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1679EB445850FBCBAC1E', 'IHSM EB Demo', NULL, '0', NULL, '@ihsmebdemo.com', '', 0, 0, 5, NULL, '2020-05-20 13:38:29.000', 'Kapil Koul', '2021-02-06 06:33:16.000', 'Kapil Koul', 1, 0, 'Recon Report');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1679EB445850FBCBAC1E', 'IHSM IB Demo', NULL, '0', NULL, '@ihsmibdemo.com', '', 0, 0, 2, NULL, '2020-05-20 13:44:38.000', 'Pawan Kumar', '2021-01-28 15:31:07.000', 'Pawan Kumar', 1, 0, 'Recon Report');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD171F580808A0388D93EE', 'Florida Atlantic Securities Corp', NULL, '4', NULL, '@floridaatlantic.net', '', 0, 0, 5, NULL, '2020-05-20 15:28:38.000', 'Edward Plante', '2020-06-25 15:30:20.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE961588B39CE4B061B6739F', 'LOUIS CAPITAL MARKETS UK LLP', NULL, '0', NULL, '@louiscapital.com,@taylorgrayllc.com', '', 0, 0, 5, NULL, '2020-05-20 17:11:27.000', 'Swati Gangwani', '2021-05-12 22:01:45.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('BA7B4F3615BB5273A1B0E2A6B87', 'IHSM_PreProcessor_Demo', '', '0', '', '@cs.com', '', 0, 0, 5, '', '2020-04-20 14:34:50.000', 'Kapil wobu', '2021-01-28 15:32:11.000', 'Kapil wobu', 1, 0, 'IHSM_PreProcessor_Demo	Preprocessors Testing for below scenarios: 1.Single trade file, batch for multiple trade file,2.IOI single file batch, IOI multiple file batch,3.Fee single batch and fee multiple file batch set up.');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD17258F68CD90B60AB30E', 'Alliance Global Partners', NULL, '4', NULL, '@europac.net,@allianceg.com', '', 0, 0, 5, NULL, '2020-05-28 01:58:14.000', 'Stephanie Ginsberg', '2022-02-08 15:37:20.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD172330041F41B7A1010B', 'MV SECURITIES GROUP INC', NULL, '4', NULL, '@monroevos.com', '', 0, 0, 5, NULL, '2020-05-29 18:34:20.000', 'Janet Burke', '2022-02-08 15:57:41.000', 'Janet Burke', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F171F5826E3E0F9111F81', 'Kimelman & Baird, LLC', NULL, '4', NULL, '@kimelmanbaird.com', '', 0, 0, 5, NULL, '2020-05-29 19:05:04.000', 'Janet Burke', '2020-05-29 19:05:04.000', 'Janet Burke', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F172623B60400127BAD56', 'BOK Financial Securities Inc', NULL, '4', NULL, '@bokf.com', '', 0, 0, 5, NULL, '2020-05-29 20:25:47.000', 'Stephanie Ginsberg', '2022-12-09 18:50:24.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F17264EF1B930AD4CB957', 'Advisor Group', NULL, '4', NULL, '@AdvisorGroup.com', '', 0, 0, 5, NULL, '2020-05-31 03:26:33.000', 'Stephanie Ginsberg', '2022-09-21 14:06:11.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD17276E87BA60AA40AB66', 'Seaport Securities Corporation', NULL, '4', NULL, '@seaportsecurities.com', '', 0, 0, 5, NULL, '2020-06-02 21:06:15.000', 'Colton Spence', '2022-08-29 16:34:03.000', 'Colton Spence', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F172776299E401BF7A9C2', 'Empire Asset Management Company', NULL, '4', NULL, '@empiream.com', '', 0, 0, 5, NULL, '2020-06-02 22:42:16.000', 'Vincent Dammann', '2021-03-09 21:23:13.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD171F5844FC50D97FBA60', 'Rockefeller Financial LLC', NULL, '4', NULL, '@rockco.com', '', 0, 0, 5, NULL, '2020-06-04 15:04:05.000', 'Paul Rennard', '2022-06-22 12:59:47.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F171F57CBD5B0ED66C7AE', 'Principal Securities INC', NULL, '4', NULL, '@Principal.com', '', 0, 0, 5, NULL, '2020-06-04 15:43:38.000', 'Janet Burke', '2022-02-08 16:02:37.000', 'Janet Burke', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F171F588CAF3042BFF307', 'Peoples Securities INC', NULL, '4', NULL, '@peoples.com', '', 0, 0, 5, NULL, '2020-06-04 15:47:37.000', 'Janet Burke', '2022-02-08 16:02:24.000', 'Janet Burke', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD171F57B1E3808AEAD0C2', 'Kedem Capital Corporation', NULL, '0', NULL, '@kedemcapital.com', '', 0, 0, 5, NULL, '2020-06-04 16:56:48.000', 'Janet Burke', '2022-02-08 15:55:59.000', 'Janet Burke', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD171F58AABF906A676DE', 'Westminster Financial Securities Inc', NULL, '4', NULL, '@westminsterfinancial.com', '', 0, 0, 5, NULL, '2020-06-04 17:17:21.000', 'Janet Burke', '2022-02-08 16:06:51.000', 'Janet Burke', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F172865EC2540EC599110', 'Glen Eagle Wealth LLC', NULL, '4', NULL, '@gleneagleadv.com', '', 0, 0, 5, NULL, '2020-06-06 02:11:34.000', 'Patrick Bohman', '2022-10-19 22:00:07.000', 'Patrick Bohman', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD172A3B441460261DDC01', 'CastleOak Securities', NULL, '4', NULL, '@castleoaklp.com', '', 0, 0, 5, NULL, '2020-06-11 13:57:59.000', 'Paul Rennard', '2022-02-11 16:49:05.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F172C8F97C40077AAFFA4', 'Westport Capital Markets LLC', NULL, '4', NULL, '@westportcapitalmarkets.com', '', 0, 0, 5, NULL, '2020-06-18 19:59:14.000', 'Stephanie Ginsberg', '2022-09-02 19:51:04.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'E2E Automation', NULL, '0', NULL, '@automation.com', '', 0, 0, 2, NULL, '2020-06-19 06:58:37.000', 'Apeksha Agarwal', '2022-11-24 10:16:42.000', 'Apeksha Agarwal', 1, 0, 'E2E Automation	E2E Automation -606');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F172DD718DD70C5C28539', 'GFI Securities LLC', NULL, '4', NULL, '@gfigroup.com', '', 0, 0, 5, NULL, '2020-06-22 18:22:03.000', 'Stephanie Ginsberg', '2022-09-02 19:52:25.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F172E7ADB00B0E4B5003C', 'E and J Securities Corp', NULL, '4', NULL, '@eandjsecurities.com', '', 0, 0, 5, NULL, '2020-06-25 02:03:14.000', 'Paul Rennard', '2022-05-31 15:52:59.000', 'Paul Rennard', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F17357FB71870BF423886', 'Dash Financial Technologies', NULL, '4', NULL, '@dashfinancial.com', '', 0, 0, 5, NULL, '2020-07-16 14:12:39.000', 'Edward Plante', '2021-01-27 21:08:06.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1736D67243D085054F1A', 'Blackstone Group', NULL, '4', NULL, '@gsocap.com', '', 0, 0, 1, NULL, '2020-07-20 17:40:44.000', 'Juan Vera', '2022-01-18 16:05:05.000', 'Juan Vera', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F173B4C9B16E021F7D2A', 'KA Associates Inc', NULL, '4', NULL, '@kaynecapital.com', '', 0, 0, 0, NULL, '2020-07-31 13:51:37.000', 'Daniel Dewitt', '2020-08-03 15:04:04.000', 'Daniel Dewitt', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1710D0E0F5C0D9A409A3', 'E2E EB Test', NULL, '0', NULL, '@automation.com', '', 0, 0, 5, NULL, '2020-08-05 08:36:29.000', 'Himanahu Srivastava', '2021-01-28 15:33:18.000', 'Himanahu Srivastava', 1, 0, 'E2E EB Test	E2E Automation -Lookthrough');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1710D0E0F5C0D9A409A3', 'E2E IB Test', NULL, '0', NULL, '@automation.com', '', 0, 0, 2, NULL, '2020-08-05 09:50:22.000', 'Himanahu Srivastava', '2021-03-03 19:05:50.000', 'Himanahu Srivastava', 1, 0, 'E2E IB Test	E2E Automation -Lookthrough');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15F0CB26386055A21D55', 'Sanders Morris Harris Inc', NULL, '4', NULL, '@smhgroup.com', '', 0, 0, 5, NULL, '2020-08-05 20:12:30.000', 'Edward Plante', '2020-12-04 03:27:32.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD173C5257B530F2D470B6', 'Alterna Securities Inc', NULL, '4', NULL, '@actinversecurities.com', '', 0, 0, 5, NULL, '2020-08-06 16:49:17.000', 'Stephanie Ginsberg', '2021-07-08 14:10:11.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F173F0D9578104D68C497', 'Aegis Capital Corp', NULL, '4', NULL, '@aegiscap.com', '', 0, 0, 5, NULL, '2020-08-15 05:09:14.000', 'Montel Hardy', '2022-11-04 16:36:39.000', 'Montel Hardy', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1740CE7AA7E047A5F92E', 'SAMI Brokerage', NULL, '4', NULL, '@samipfd.com', '', 0, 0, 5, NULL, '2020-08-21 18:40:46.000', 'Janet Burke', '2022-04-19 17:52:22.000', 'Janet Burke', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F17444FB7F120FCC02F3B', 'Kepler Capital Markets Inc', NULL, '0', NULL, '@keplercheuvreux.com', '', 0, 0, 5, NULL, '2020-08-31 15:08:06.000', 'Nikhil Ravi', '2021-03-03 17:22:49.000', 'Nikhil Ravi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1684E68368002C230009', 'Blaylock Van LLC', NULL, '4', NULL, '@brv-llc.com', '', 0, 0, 5, NULL, '2020-09-30 17:38:32.000', 'Edward Plante', '2021-02-24 05:04:00.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1667E13D76207F04EED2', '605_TestCLKP', NULL, '0', NULL, '@testcl.com', '', 0, 0, 5, NULL, '2020-10-01 08:19:42.000', 'Anjali Kumari', '2021-04-28 13:48:48.000', 'Anjali Kumari', 1, 0, '605_TestCLKP	605-Manual Exclusion Logic & Market Maker Flag testing using Preprocessor');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', '605_Tesmta_client3', NULL, '0', NULL, '@605test.com', '', 0, 0, 1, NULL, '2020-10-01 08:56:54.000', 'Pawan Kumar', '2022-07-11 09:57:32.000', 'Pawan Kumar', 1, 0, '605_Tesmta_client3	605-Outlier Reports related tickets during PROD release');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13279086F890CCB4165A', '605_Tesmta_client_PK', NULL, '0', NULL, '@605test.com', '', 0, 0, 5, NULL, '2020-10-05 13:46:28.000', 'Pawan Kumar', '2022-07-09 07:10:39.000', 'Pawan Kumar', 1, 0, '605_Tesmta_client_PK	605/Merged related tickets during PROD release');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD17258F68CD90B60AB30E', 'Citigroup Global Markets', NULL, '4', NULL, '@citi.com', '', 0, 0, 5, NULL, '2020-10-06 18:16:34.000', 'Swati Gangwani', '2020-10-06 18:17:36.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15E3DB1AD8009A43F655', 'National Financial Services', NULL, '4', NULL, '@fmr.com', '', 0, 0, 5, NULL, '2020-10-06 18:17:40.000', 'Swati Gangwani', '2020-11-10 21:36:52.000', 'Swati Gangwani', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1750369393A0325BCB95', 'Score Priority Corp', NULL, '4', NULL, '@scorepriority.com', '', 0, 0, 5, NULL, '2020-10-07 13:24:25.000', 'Stephanie Ginsberg', '2022-02-08 16:06:05.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF4FE6CFA13E5CA4EBA30764FB631', 'Instinet', NULL, '4', NULL, '@Instinet.com,@instinet.com', '', 0, 0, 5, NULL, '2020-10-07 15:07:02.000', 'Christopher Perry', '2022-09-30 18:21:13.000', 'Christopher Perry', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1752939CF9F01F60437B', 'Investment Placement Group', NULL, '4', NULL, '@ipgsd.com', '', 0, 0, 5, NULL, '2020-10-15 00:32:56.000', 'Stephanie Ginsberg', '2020-10-15 02:15:29.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD1667E13D76207F04EED2', '605_Tesmta_client1a', NULL, '4', NULL, '@605testclient1.com,@ihsmarkit.com', '', 0, 0, 1, NULL, '2020-10-23 06:43:08.000', 'mtapentestsuper user1', '2021-10-18 18:01:13.000', 'mtapentestsuper user1', 1, 0, '605_Tesmta_client1	605-Market Data Comparison Report');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15EEF6BDB9555AE1B646', 'Sumridge', NULL, '0', NULL, '@sumridge.com', '', 0, 0, 2, NULL, '2020-10-28 08:48:31.000', 'Amit Pahwa', '2022-03-29 13:33:15.000', 'Amit Pahwa', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD175B897B07E07BE1B59', 'Citadel Securities LLC', NULL, '0', NULL, '@citadelsecurities.com', '', 0, 0, 1, NULL, '2020-10-28 11:44:28.000', 'Kartik Arthanat', '2021-09-23 12:24:27.000', 'Kartik Arthanat', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'Security_Tesmta_client1', NULL, '0', NULL, '@securitytestclient1.com', '', 0, 0, 5, NULL, '2020-10-28 14:55:04.000', 'Karanpreet Kaur', '2021-01-28 15:35:21.000', 'Karanpreet Kaur', 1, 0, 'Security_Tesmta_client1	Security Testing');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'Security_Tesmta_client2', NULL, '0', NULL, '@securitytestclient2.com', '', 0, 0, 5, NULL, '2020-10-28 15:10:07.000', 'Karanpreet Kaur', '2021-01-28 15:35:42.000', 'Karanpreet Kaur', 1, 0, 'Security_Tesmta_client2	Security Testing');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15BA63BCC2616C7580D4', 'Virtu Financial Capital Markets', NULL, '0', NULL, '@virtu.com', '', 0, 0, 1, NULL, '2020-10-28 20:06:12.000', 'Amit Grover', '2022-10-07 17:56:14.000', 'Amit Grover', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'MAN GLG', NULL, '0', NULL, 'man.com,ihsmarkit.com', '', 0, 0, 1, NULL, '2020-10-29 16:23:09.000', 'Christos Gardikis', '2021-04-06 15:15:22.000', 'Christos Gardikis', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD15FEE7E48400DDE4A34A', 'RBS Global Securities', NULL, '0', NULL, '@natwestmarkets.com', '', 0, 0, 1, NULL, '2020-11-02 12:36:53.000', 'Stephanie Ginsberg', '2022-02-08 16:04:04.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F175DF14863B0C59D671E', 'IMC Execution Services LLC', NULL, '4', NULL, '@imc.com', '', 0, 0, 1, NULL, '2020-11-08 15:17:59.000', 'Stephanie Ginsberg', '2021-02-01 18:26:57.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF81791F1E563E0F47034E6', 'HRT Execution Services', NULL, '4', NULL, '@hudson-trading.com,@suntradingllc.com', '', 0, 0, 5, NULL, '2020-11-11 11:09:54.000', 'Stephanie Ginsberg', '2022-09-02 19:53:03.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F1766470215F0B116E6D1', 'Goldman Sachs', NULL, '0', NULL, '@Goldman.com,@gs.com', '', 0, 0, 0, NULL, '2020-12-15 03:07:09.000', 'Stephanie Ginsberg', '2021-05-12 14:12:55.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'BECM Broadridge 606', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2020-12-24 06:13:37.000', 'Linda Zralka', '2021-07-27 17:44:08.000', 'Linda Zralka', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F176F20BB43606740D3BB', 'TIAA', NULL, '0', NULL, '@tiaa.org', '', 0, 0, 2, NULL, '2019-10-04 14:32:00.000', 'Deependra Negi', '2021-01-14 15:56:46.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA132790568E60F061370D', 'DoNotUse_IMC Execution Services LLC', NULL, '4', NULL, '@imcx.com', '', 0, 0, 5, NULL, '2021-01-20 16:38:50.000', 'Stephanie Ginsberg', '2021-02-01 18:33:36.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'E2EAutomation605', NULL, '0', NULL, '@605test.com', '', 0, 0, 5, NULL, '2021-01-25 09:54:19.000', 'Pawan Kumar', '2022-02-14 19:18:51.000', 'Pawan Kumar', 1, 0, 'E2EAutomation605	E2E Automation-605');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'E2EAutomationMerge', NULL, '0', NULL, '@merge.com', '', 0, 0, 1, NULL, '2021-01-25 10:20:30.000', 'Apeksha Agarwal', '2022-09-27 15:49:54.000', 'Apeksha Agarwal', 1, 0, 'E2EAutomationMerge	E2E Automation-Merged Batch');
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('F14601B81773A58F7B00A9B2C275', 'WestPark Capital', NULL, '4', NULL, '@wpcapital.com', '', 0, 0, 5, NULL, '2021-01-25 13:36:57.000', 'Stephanie Ginsberg', '2021-01-25 16:42:16.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('E59C34F81778D7D812F18F1F432F', 'G1X Susquehanna', NULL, '0', NULL, '@sig.com', '', 0, 0, 1, NULL, '2021-01-28 09:12:55.000', 'Janet Burke', '2021-09-07 15:36:17.000', 'Janet Burke', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD171D126F5A40D732AE94', 'Voya', NULL, '4', NULL, '@voya.com', '', 0, 0, 1, NULL, '2021-02-18 21:57:35.000', 'Vincent Dammann', '2021-03-29 17:40:55.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('B019FAB8177B75214450D0FBA7C0', 'NEXT Financial', NULL, '4', NULL, '@nextfinancial.com', '', 0, 0, 1, NULL, '2021-02-18 22:06:17.000', 'Vincent Dammann', '2021-04-12 20:28:00.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('E59C34F8177B74275AA1FD34A051', 'T Rowe Price', NULL, '0', NULL, '@troweprice.com', '', 0, 0, 1, NULL, '2021-02-18 22:13:38.000', 'Vincent Dammann', '2021-04-12 20:31:45.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'OMSClient1_Advisor', NULL, '0', NULL, '@omsclient1.com', '', 0, 0, 5, NULL, '2021-03-01 09:16:27.000', 'Karanpreet Kaur', '2021-03-01 09:16:27.000', 'Karanpreet Kaur', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'OMSClient2_bok', NULL, '0', NULL, '@omsclient2.com', '', 0, 0, 5, NULL, '2021-03-01 09:18:31.000', 'Lovish Jain', '2021-05-24 14:02:22.000', 'Lovish Jain', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('71E130D817824A8E2443C09BA2A2', 'Mondrian Investment Partners', NULL, '2', NULL, 'mondrian.com', '', 0, 0, 1, NULL, '2021-03-11 17:30:45.000', 'Deependra Negi', '2021-03-19 18:28:07.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('71E130D81783D54D22E05E056551', 'Lockwood Advisors', NULL, '0', NULL, '@lkwd.com', '', 0, 0, 5, NULL, '2021-03-16 19:23:37.000', 'Stephanie Ginsberg', '2022-02-08 15:45:34.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('201D129817910F47568098AFE94B', 'Northwestern Mutual Investment Services', NULL, '4', NULL, '@northwesternmutual.com', '', 0, 0, 5, NULL, '2021-04-12 20:39:27.000', 'Vincent Dammann', '2021-04-27 03:09:05.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF81791011DF43268F52D39', 'Royal Alliance', NULL, '4', NULL, 'advisorgroup.com', '', 0, 0, 5, NULL, '2021-04-15 21:27:32.000', 'Stephanie Ginsberg', '2022-02-08 16:04:41.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Monness Crespi Hardt and Co Inc', NULL, '4', NULL, '@mchny.com,@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-11 09:17:16.000', 'Stephanie Ginsberg', '2021-05-13 17:48:32.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Agency Trading Group Inc', NULL, '4', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-12 17:21:01.000', 'Vivek Bernard', '2021-05-12 17:21:01.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'American Capital Partners LLC', NULL, '4', NULL, '@ihsmarkit.com', '', 0, 0, 5, NULL, '2021-05-12 17:56:16.000', 'Vivek Bernard', '2021-05-12 17:56:16.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('ABE0A4FD153E5E8813A0B040EC9', 'Dreyfus Brokerage Services', NULL, '4', NULL, '@bnymellon.com', '', 0, 0, 5, NULL, '2021-05-12 18:20:29.000', 'Christopher Perry', '2021-05-25 14:11:05.000', 'Christopher Perry', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Arctic Securities LLC', NULL, '4', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-12 18:22:50.000', 'Vivek Bernard', '2021-05-12 18:22:50.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Autonomous Research US LP', NULL, '4', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-12 18:36:59.000', 'Vivek Bernard', '2021-05-12 18:36:59.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Avondale Parnters LLC', NULL, '4', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-12 19:12:54.000', 'Vivek Bernard', '2021-05-12 19:12:54.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Axiom Capital Management Inc', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-12 19:27:59.000', 'Vivek Bernard', '2021-05-12 19:27:59.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'B. Riley  Co.  LLC', NULL, '4', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-12 20:01:30.000', 'Vivek Bernard', '2021-05-12 20:01:30.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Banca IMI Securities Corp', NULL, '4', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-12 20:08:21.000', 'Vivek Bernard', '2021-05-12 20:08:21.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA132790811050DE514DD', 'BMO Nesbitt Burns', NULL, '0', NULL, '@bmonb.com, @bmo.com', '', 0, 0, 0, NULL, '2021-05-13 09:00:24.000', 'Anh Thai', '2021-11-09 16:02:29.000', 'Anh Thai', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'BBT Investment', NULL, '0', NULL, '@bbtt.com', '', 0, 0, 0, NULL, '2021-05-13 10:56:36.000', 'Nikhil Ravi', '2021-05-17 15:26:55.000', 'Nikhil Ravi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'BBT Securities', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 10:58:36.000', 'Raghav Singhal', '2021-05-13 10:58:36.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'BBT Sterling Advisors', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:00:19.000', 'Raghav Singhal', '2021-05-13 18:34:06.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'BedRok Securities LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:03:36.000', 'Raghav Singhal', '2021-05-13 11:03:36.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'BTG PACTUAL US CAPITAL LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 5, NULL, '2021-05-13 11:05:53.000', 'Raghav Singhal', '2021-05-13 11:05:53.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'CapOne', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:07:52.000', 'Raghav Singhal', '2021-05-13 11:07:52.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cutter&Company', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:10:01.000', 'Raghav Singhal', '2021-05-13 11:10:01.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Global Financial Services L.L.C.', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:12:24.000', 'Raghav Singhal', '2021-05-13 11:12:24.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Guggenheim Securities LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:15:05.000', 'Raghav Singhal', '2021-05-13 11:15:05.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Height Securities LLC.', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:17:22.000', 'Raghav Singhal', '2021-05-13 11:17:22.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'ICAP Corporates LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:19:12.000', 'Raghav Singhal', '2021-05-13 11:19:12.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Itau USA Securities Inc.', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:20:54.000', 'Raghav Singhal', '2021-08-05 18:03:51.000', 'Raghav Singhal', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Longbow Securities LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:42:48.000', 'Raghav Singhal', '2021-05-13 11:42:48.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Olivetree Financial LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:44:46.000', 'Raghav Singhal', '2021-05-13 11:44:46.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'RBC Capital Markets LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:46:39.000', 'Raghav Singhal', '2021-05-13 11:46:39.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Samuel A. Ramirez & Co.', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:48:23.000', 'Raghav Singhal', '2021-05-13 11:48:23.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Summit Brokerage Services Inc.', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:50:22.000', 'Raghav Singhal', '2021-05-13 11:50:22.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Tribal Cap', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:54:07.000', 'Raghav Singhal', '2021-05-13 11:54:07.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('9473BF7417D975167141B681FF26', 'TUDOR PICKERING HOLT and CO', NULL, '0', NULL, '@tphco.com,@pick.com', '', 0, 0, 1, NULL, '2021-05-13 11:55:44.000', 'Paul Rennard', '2022-02-07 14:19:06.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'United First Partners', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:58:10.000', 'Raghav Singhal', '2021-05-13 11:58:10.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'W.R. Hambrecht &amp Co.', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 11:59:43.000', 'Raghav Singhal', '2021-05-13 11:59:43.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Williams Capital', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 12:01:24.000', 'Raghav Singhal', '2021-05-13 12:01:24.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Wintrust Investments LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 12:02:50.000', 'Raghav Singhal', '2021-05-13 12:02:50.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Zebed Securities LLC', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 1, NULL, '2021-05-13 12:04:12.000', 'Raghav Singhal', '2021-05-13 12:04:12.000', 'Raghav Singhal', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF8179800CFE15180E9DC82', 'MML Investor Services', NULL, '0', NULL, '@mml.com,@massmutual.com', '', 0, 0, 5, NULL, '2021-05-17 15:14:32.000', 'Paul Rennard', '2021-08-02 20:31:19.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF817984E8E00E6E47D3EC8', 'Citi International Financial Services', NULL, '0', NULL, '@citi.com', '', 0, 0, 5, NULL, '2021-05-19 15:12:06.000', 'Vincent Dammann', '2021-05-19 15:44:12.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('201D12981799F89AEB0084C8DD62', 'American National', NULL, '4', NULL, '@americannational.com', '', 0, 0, 5, NULL, '2021-05-20 14:45:27.000', 'Janet Burke', '2021-08-13 03:17:50.000', 'Janet Burke', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF81799F727DD10D73D84CF', 'Gery Sadzewicz Consulting LLC', NULL, '4', NULL, '@gscomplianceconsulting.com', '', 0, 0, 5, NULL, '2021-05-20 14:48:11.000', 'Christopher Perry', '2021-05-25 14:06:56.000', 'Christopher Perry', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13A8D154EDA0F8A57E59', 'Liquidnet', NULL, '4', NULL, '@liquidnet.com', '', 0, 0, 5, NULL, '2021-05-20 14:49:43.000', 'Christopher Perry', '2021-05-25 14:08:17.000', 'Christopher Perry', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FFFFFFFFF0FFFBDA13279745B3A06AF0A993', 'Interactive Brokers', NULL, '4', NULL, '@interactivebrokers.com', '', 0, 0, 5, NULL, '2021-05-26 17:32:25.000', 'Vincent Dammann', '2021-06-17 17:07:13.000', 'Vincent Dammann', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Tradition Securities and Derivatives (TMIN)', NULL, '1', NULL, '@ihsmarkit.com', '', 0, 0, 5, NULL, '2021-05-31 01:45:59.000', 'Vivek Bernard', '2021-05-31 01:45:59.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cowen Prime - CCMB', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-31 07:43:02.000', 'Vivek Bernard', '2021-05-31 07:43:02.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cowen Prime - CCMK', NULL, '1', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-31 07:48:01.000', 'Vivek Bernard', '2021-05-31 07:48:01.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cowen Prime  - CCML', NULL, '1', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-31 07:50:23.000', 'Vivek Bernard', '2021-05-31 07:50:23.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cowen Prime - CMKT', NULL, '1', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-31 07:52:08.000', 'Vivek Bernard', '2021-05-31 07:52:08.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cowen Prime - CNFR', NULL, '1', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-31 07:52:55.000', 'Vivek Bernard', '2021-05-31 07:52:55.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cowen Prime - CXPS', NULL, '1', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-31 07:53:19.000', 'Vivek Bernard', '2021-05-31 07:53:19.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cowen Prime - NPNT', NULL, '1', NULL, '@ihsmarkit.com', '', 0, 0, 0, NULL, '2021-05-31 07:53:47.000', 'Vivek Bernard', '2021-05-31 07:53:47.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Cowen Prime - NPTP', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 5, NULL, '2021-05-31 07:54:16.000', 'Vivek Bernard', '2021-05-31 07:54:16.000', 'Vivek Bernard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF817A11C875CA013BF0982', 'Revere Securities', NULL, '0', NULL, '@reveresecurities.com', '', 0, 0, 5, NULL, '2021-06-14 18:46:07.000', 'Edward Plante', '2021-06-30 14:21:11.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('201D129817A1D24678A0DDEAE331', 'Credit Suisse PCS', NULL, '4', NULL, '@credit-suisse.com', '', 0, 0, 5, NULL, '2021-06-18 15:51:23.000', 'Kartik Arthanat', '2021-11-23 16:53:39.000', 'Kartik Arthanat', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('D530897F15FE31EA61961EBD347B', 'TestC', NULL, '1', NULL, '@testc.com', '', 0, 0, 1, NULL, '2021-06-28 08:51:05.000', 'suraj kumar', '2022-05-19 09:24:43.000', 'suraj kumar', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF817A815A73BA01CD0BE8D', 'OMERS Adiministration Corp', NULL, '0', NULL, '@omers.com', '', 0, 0, 5, NULL, '2021-07-07 13:58:23.000', 'Deependra Negi', '2021-07-13 13:43:00.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2EpreSingleBatchFC1', NULL, '0', NULL, '@cs.com', '', 0, 0, 5, NULL, '2021-07-27 09:47:19.000', 'Karanpreet Kaur', '2021-11-03 16:50:41.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2EpreSingleBatchFC2', NULL, '0', NULL, '@cs.com', '', 0, 0, 5, NULL, '2021-07-27 13:45:11.000', 'Karanpreet Kaur', '2021-11-03 16:50:41.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2E_TradeFeeIOI_FC2', NULL, '0', NULL, '@automation.com', '', 0, 0, 5, NULL, '2021-07-27 14:18:49.000', 'Karanpreet Kaur', '2021-11-03 16:50:41.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2E EB Test FC2', NULL, '0', NULL, '@EBFC2auto.com', '', 0, 0, 5, NULL, '2021-07-28 07:26:30.000', 'Karanpreet Kaur', '2021-11-03 16:50:41.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2E IB Test FC2', NULL, '0', NULL, '@E2EFC2auto.com', '', 0, 0, 5, NULL, '2021-07-28 07:44:12.000', 'Karanpreet Kaur', '2021-11-03 16:50:41.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2EpreProcessorMultiBatch', NULL, '0', NULL, '@cs.com', '', 0, 0, 5, NULL, '2021-07-28 11:13:00.000', 'Karanpreet Kaur', '2021-11-03 16:50:42.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2E_FileFormats', NULL, '0', NULL, '@automation.com', '', 0, 0, 5, NULL, '2021-07-29 13:38:32.000', 'Karanpreet Kaur', '2021-11-03 16:50:42.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2EManualExclusionClient', NULL, '0', NULL, '@605test.com', '', 0, 0, 5, NULL, '2021-07-30 12:43:32.000', 'Karanpreet Kaur', '2021-11-03 16:50:42.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'OMSClient3_Tiaa', NULL, '0', NULL, '@omstiaa.com', '', 0, 0, 5, NULL, '2021-08-03 11:40:26.000', 'Karanpreet Kaur', '2021-08-03 11:40:26.000', 'Karanpreet Kaur', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2E_OMS1_CL1', NULL, '0', NULL, '@testoms.com', '', 0, 0, 5, NULL, '2021-08-04 11:24:01.000', 'Karanpreet Kaur', '2021-11-03 16:50:42.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('274DBE9615C9C1754D5096D09B33', 'E2E_OMS1_CL2', NULL, '0', NULL, '@testoms.com', '', 0, 0, 5, NULL, '2021-08-04 11:27:17.000', 'Karanpreet Kaur', '2021-11-03 16:50:42.000', 'Karanpreet Kaur', 1, 0, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF817B17C2FD5C35842C188', 'Clarksons Platou Securities Inc', NULL, '4', NULL, '@clarksons.com', '', 0, 0, 5, NULL, '2021-08-05 18:34:13.000', 'Paul Rennard', '2021-08-06 13:50:19.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('FF934BF817C098F20E20DE44C55B', 'CFS Insurance and Technology Services LLC', NULL, '4', NULL, '@cadaretgrant.com', '', 0, 0, 5, NULL, '2021-09-21 18:41:47.000', 'Paul Rennard', '2022-04-21 02:54:46.000', 'Paul Rennard', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('5944DDFC17CA41180FF0EB60591E', 'Caldwell Sutter Capital Inc', NULL, '4', NULL, '@cald.com', '', 0, 0, 5, NULL, '2021-10-21 18:23:34.000', 'Paul Rennard', '2021-12-15 17:58:10.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('5944DDFC17D00A285A706C264AC4', 'Quaestor Global Securities LLC', NULL, '4', NULL, '@quaestortrade.com,@ihsmarkit.com', '', 0, 0, 5, NULL, '2021-11-08 17:14:49.000', 'Stephanie Ginsberg', '2022-08-26 14:39:26.000', 'Stephanie Ginsberg', 0, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'spider0100(alert)(1)', NULL, '0', NULL, 'spider01@spidermail.us', '', 0, 0, 0, NULL, '2022-01-18 16:47:48.000', 'mtapentestsuper user1', '2022-01-18 16:52:25.000', 'mtapentestsuper user1', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'spider02', NULL, '0', NULL, 'spider01@spidermail.us', '', 0, 0, 0, NULL, '2022-01-18 16:48:23.000', 'mtapentestsuper user1', '2022-01-18 16:48:23.000', 'mtapentestsuper user1', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'spider03', NULL, '0', NULL, 'spider01@spidermail.us', '', 0, 0, 0, NULL, '2022-01-18 16:48:31.000', 'mtapentestsuper user1', '2022-01-18 16:48:31.000', 'mtapentestsuper user1', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'spider04', NULL, '0', NULL, 'spider01@spidermail.us', '', 0, 0, 0, NULL, '2022-01-18 16:49:14.000', 'mtapentestsuper user1', '2022-01-18 16:49:14.000', 'mtapentestsuper user1', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('B0ADB2EC17F4C02E1520665C9883', 'Lombard Odier', NULL, '2', NULL, 'lombardodier.com', '', 0, 0, 1, NULL, '2022-03-02 15:22:55.000', 'Deependra Negi', '2022-03-31 16:38:34.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Madison Capital', NULL, '0', NULL, '@ihsmarkit.com', '', 0, 0, 5, NULL, '2022-03-30 11:13:00.000', 'Kapil Koul', '2022-03-30 11:13:00.000', 'Kapil Koul', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'IMC Chicago LLC (dba IMC Financial Markets)', NULL, '0', NULL, '@spglobal.com', '', 0, 0, 5, NULL, '2022-04-20 21:52:31.000', 'Stephanie Ginsberg', '2022-04-20 21:52:31.000', 'Stephanie Ginsberg', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('3AAEBF9818085EC27610186F1E3C', 'Laurentian Bank Securities Inc', NULL, '4', NULL, '@vmbl.ca', '', 0, 0, 5, NULL, '2022-05-02 17:31:33.000', 'Edward Plante', '2022-06-27 14:43:04.000', 'Edward Plante', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Zeno', NULL, '0', NULL, '@ihsmarkit.com,@abelnoser.com', '', 0, 0, 1, NULL, '2022-05-10 00:27:36.000', 'Deependra Negi', '2022-05-10 04:54:38.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('3AAEBF9818124C5266E0F253C4E4', 'Hightower Securities LLC', NULL, '4', NULL, '@hightoweradvisors.com', '', 0, 0, 5, NULL, '2022-06-02 14:07:10.000', 'Paul Rennard', '2022-06-02 14:22:35.000', 'Paul Rennard', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'Aviva Investors', NULL, '2', NULL, '@avivainvestors.com', '', 0, 0, 1, NULL, '2022-08-02 14:39:54.000', 'Deependra Negi', '2022-08-16 13:01:39.000', 'Deependra Negi', 1, 1, NULL);
+INSERT INTO tmp.mta_client
+(UserXSClientID, ClientName, ServiceType, ClientLocation, SalesforceAccountName, DomainRestrictions, IPRestrictions, IsAdmin, IsPOC, ClientTypeID, ClientSize, Created, CreatedBy, LastUpdated, LastUpdatedBy, IsActive, isExternal, description)
+VALUES('', 'testAS', NULL, '0', NULL, '@testas.com', '', 0, 0, 5, NULL, '2022-11-10 11:25:42.000', 'Aakriti Srivastava', '2022-11-10 11:26:06.000', 'Aakriti Srivastava', 0, 1, NULL);
+
+
+
+
+
+
